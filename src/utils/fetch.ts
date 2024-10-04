@@ -1,4 +1,4 @@
-const serializeParams = (params: Record<string, any>): string => {
+const serializeParams = (params: Record<string, string>): string => {
 	return Object.keys(params)
 		.map(
 			(key) => encodeURIComponent(key) + "=" + encodeURIComponent(params[key])
@@ -7,7 +7,7 @@ const serializeParams = (params: Record<string, any>): string => {
 }
 
 interface FetchOptions extends RequestInit {
-	queryParams?: Record<string, any>
+	queryParams?: Record<string, string>
 }
 
 export const fetchData = async <T>(
