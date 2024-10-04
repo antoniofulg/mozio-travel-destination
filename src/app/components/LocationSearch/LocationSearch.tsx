@@ -16,21 +16,32 @@ export const LocationSearch = () => {
 		ShortLocation[]
 	>([])
 
-	const fetchLocationsList = async (query: string) => {
+	const [isFetchingLocationsList, setIsFetchingLocationsList] = useState(false)
+	const [isFetchingNearbyLocations, setIsFetchingNearbyLocations] =
+		useState(false)
+
+	const fetchLocationsList = useCallback(async (query: string) => {
 		if (!query) {
 			setLocationsList([])
 			return
 		}
 
-		const response = await fetchData<{ data: ShortLocation[] }>(
-			"api/locations",
-			{
-				queryParams: { query },
-			}
-		)
-
-		setLocationsList(response.data || [])
-	}
+		setIsFetchingLocationsList(true)
+		try {
+			const response = await fetchData<{ data: ShortLocation[] }>(
+				"api/locations",
+				{
+					queryParams: { query },
+				}
+			)
+			setLocationsList(response.data || [])
+		} catch (error) {
+			console.error("Error fetching locations list:", error)
+			setLocationsList([])
+		} finally {
+			setIsFetchingLocationsList(false)
+		}
+	}, [])
 
 	const fetchLocationById = async (id: string | number) => {
 		if (!id.toString()) {
@@ -49,11 +60,18 @@ export const LocationSearch = () => {
 			return
 		}
 
-		const response = await fetchData<{ data: ShortLocation[] }>(
-			"api/location/nearby/" + selectedLocation.id
-		)
-
-		setNearbyLocationsList(response.data || [])
+		setIsFetchingNearbyLocations(true)
+		try {
+			const response = await fetchData<{ data: ShortLocation[] }>(
+				"api/location/nearby/" + selectedLocation.id
+			)
+			setNearbyLocationsList(response.data || [])
+		} catch (error) {
+			console.error("Error fetching nearby locations:", error)
+			setNearbyLocationsList([])
+		} finally {
+			setIsFetchingNearbyLocations(false)
+		}
 	}, [selectedLocation])
 
 	useEffect(() => {
@@ -68,9 +86,10 @@ export const LocationSearch = () => {
 		<div className="w-96">
 			<div className="px-10 py-12 bg-gray-300 dark:bg-gray-800 rounded-2xl w-96 flex flex-col gap-2">
 				<Combobox
-					getOptions={(query) => fetchLocationsList(query)}
-					onSelect={(id) => fetchLocationById(id)}
+					getOptions={fetchLocationsList}
+					onSelect={fetchLocationById}
 					options={locationsList}
+					isLoading={isFetchingLocationsList}
 				/>
 			</div>
 			{selectedLocation && (
@@ -79,6 +98,7 @@ export const LocationSearch = () => {
 					<NearbyLocations
 						locations={nearbyLocationsList}
 						onClick={(id) => fetchLocationById(id)}
+						isLoading={isFetchingNearbyLocations}
 					/>
 				</>
 			)}

@@ -7,13 +7,19 @@ type Option = { name: string; id: string | number }
 
 type Props = {
 	getOptions: (value: string) => void
+	isLoading: boolean
 	onSelect: (value: string | number) => void
 	options: Option[]
 }
 
 const DEBOUNCE_TIME = 500
 
-export const Combobox = ({ getOptions, onSelect, options }: Props) => {
+export const Combobox = ({
+	getOptions,
+	isLoading,
+	onSelect,
+	options,
+}: Props) => {
 	const [query, setQuery] = useState("")
 	const [isOpen, setIsOpen] = useState(false)
 
@@ -25,7 +31,7 @@ export const Combobox = ({ getOptions, onSelect, options }: Props) => {
 		}, DEBOUNCE_TIME)
 
 		return () => clearTimeout(timeoutId)
-	}, [query, getOptions, isOpen])
+	}, [query, isOpen, getOptions])
 
 	const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setQuery(event.target.value)
@@ -54,7 +60,7 @@ export const Combobox = ({ getOptions, onSelect, options }: Props) => {
 			/>
 			{isOpen && (
 				<SelectBox
-					isLoading={false}
+					isLoading={isLoading}
 					options={options}
 					onClick={(option) => onSelectHandler(option)}
 				/>

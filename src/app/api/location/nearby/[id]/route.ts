@@ -9,8 +9,6 @@ export async function GET(
 ) {
 	const id = params.id
 
-	console.log({ id })
-
 	await delay(1000)
 
 	if (!id) {
