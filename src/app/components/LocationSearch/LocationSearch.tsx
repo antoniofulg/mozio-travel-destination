@@ -4,7 +4,7 @@ import { Combobox } from "@/app/ui/components"
 import { LocationCard } from "../LocationCard/LocationCard"
 import { NearbyLocations } from "../NearbyLocations/NearbyLocations"
 import { useState } from "react"
-import { fetchData } from "@/utils/fetch"
+import { fetchData } from "@/utils"
 import { Location, ShortLocation } from "@/app/types"
 
 export const LocationSearch = () => {

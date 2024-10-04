@@ -1,9 +1,11 @@
-import { getQueryParams } from "@/utils/getQueryParams"
 import LOCATION_LIST_MOCK from "@/mocks/LocationMocks"
 import { NextResponse } from "next/server"
+import { delay, getQueryParams } from "@/utils"
 
 export async function GET(req: Request) {
 	const { query } = getQueryParams(req)
+
+	await delay(1000)
 
 	if (!query) {
 		return NextResponse.json(
