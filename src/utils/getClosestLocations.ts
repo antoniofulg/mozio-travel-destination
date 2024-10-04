@@ -26,5 +26,6 @@ export const getClosestLocations = (
 
 	distances.sort((a, b) => a.distance - b.distance)
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	return distances.slice(1, n + 1).map(({ distance, ...loc }) => loc)
 }

@@ -3,7 +3,7 @@
 import { Combobox } from "@/app/ui/components"
 import { LocationCard } from "../LocationCard/LocationCard"
 import { NearbyLocations } from "../NearbyLocations/NearbyLocations"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { fetchData } from "@/utils"
 import { Location, ShortLocation } from "@/app/types"
 
@@ -43,7 +43,7 @@ export const LocationSearch = () => {
 		setSelectedLocation(response.data)
 	}
 
-	const fetchNearbyLocations = async () => {
+	const fetchNearbyLocations = useCallback(async () => {
 		if (!selectedLocation) {
 			setNearbyLocationsList([])
 			return
@@ -54,7 +54,7 @@ export const LocationSearch = () => {
 		)
 
 		setNearbyLocationsList(response.data || [])
-	}
+	}, [selectedLocation])
 
 	useEffect(() => {
 		if (!selectedLocation) {
@@ -62,7 +62,7 @@ export const LocationSearch = () => {
 		}
 
 		fetchNearbyLocations()
-	}, [selectedLocation])
+	}, [fetchNearbyLocations, selectedLocation])
 
 	return (
 		<div className="w-96">
