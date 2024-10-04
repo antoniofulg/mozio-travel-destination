@@ -3,18 +3,23 @@
 import { Input, SelectBox } from "@/app/ui/atoms"
 import { useEffect, useState } from "react"
 
+type Option = { name: string; id: string | number }
+
 type Props = {
 	getOptions: (value: string) => void
 	onSelect: (value: string | number) => void
-	options: { name: string; id: string | number }[]
+	options: Option[]
 }
 
 const DEBOUNCE_TIME = 500
 
 export const Combobox = ({ getOptions, onSelect, options }: Props) => {
 	const [query, setQuery] = useState("")
+	const [isOpen, setIsOpen] = useState(false)
 
 	useEffect(() => {
+		if (!isOpen) return
+
 		const timeoutId = setTimeout(() => {
 			getOptions(query)
 		}, DEBOUNCE_TIME)
@@ -22,19 +27,38 @@ export const Combobox = ({ getOptions, onSelect, options }: Props) => {
 		return () => clearTimeout(timeoutId)
 	}, [query])
 
+	const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setQuery(event.target.value)
+		setIsOpen(!!event.target.value)
+	}
+
+	const onSelectHandler = ({
+		id,
+		name,
+	}: {
+		name: string
+		id: string | number
+	}) => {
+		setIsOpen(false)
+		setQuery(name)
+		onSelect(id)
+	}
+
 	return (
 		<>
 			<Input
 				value={query}
-				onChange={(event) => setQuery(event.target.value)}
+				onChange={onChangeHandler}
 				label="Location"
 				id="location"
 			/>
-			<SelectBox
-				isLoading={false}
-				options={options}
-				onClick={(value) => onSelect(value)}
-			/>
+			{isOpen && (
+				<SelectBox
+					isLoading={false}
+					options={options}
+					onClick={(option) => onSelectHandler(option)}
+				/>
+			)}
 		</>
 	)
 }
