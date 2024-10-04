@@ -1,7 +1,8 @@
 "use client"
 
-import { Input, SelectBox } from "@/app/ui/atoms"
+import { Input } from "@/app/ui/atoms"
 import { useEffect, useState } from "react"
+import { SelectBox } from "@/app/ui/components"
 
 type Option = { name: string; id: string | number }
 

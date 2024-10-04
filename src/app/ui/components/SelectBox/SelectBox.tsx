@@ -1,3 +1,5 @@
+import { Skeleton } from "@/app/ui/atoms"
+
 type Option = { name: string; id: string | number }
 
 type Props = {
@@ -10,7 +12,7 @@ export const SelectBox = ({ isLoading, onClick, options }: Props) => {
 	if (isLoading)
 		return (
 			<div className="bg-white text-black w-full p-4 text-center rounded-2xl">
-				Loading...
+				<Skeleton className="h-4 w-full bg-gray-400" />
 			</div>
 		)
 

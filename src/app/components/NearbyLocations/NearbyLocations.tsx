@@ -1,4 +1,5 @@
-import { Badge } from "@/app/ui/atoms"
+import { Badge, Skeleton } from "@/app/ui/atoms"
+import { CSSProperties } from "react"
 
 type Props = {
 	isLoading: boolean
@@ -10,7 +11,17 @@ export const NearbyLocations = ({ isLoading, locations, onClick }: Props) => {
 	return (
 		<div className="flex flex-col gap-2">
 			<h3 className="text-lg font-medium">Nearby Locations</h3>
-			{isLoading && <div>Loading...</div>}
+			{isLoading && (
+				<div className="flex flex-wrap gap-2">
+					{[96, 88, 140, 120, 70].map((item) => (
+						<Skeleton
+							key={item}
+							className="w-[var(--skeleton-size)] h-7 bg-purple-600"
+							style={{ "--skeleton-size": `${item}px` } as CSSProperties}
+						/>
+					))}
+				</div>
+			)}
 			{!isLoading && locations.length === 0 && (
 				<div>No nearby locations found</div>
 			)}
