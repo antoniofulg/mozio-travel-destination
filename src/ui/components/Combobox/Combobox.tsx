@@ -1,3 +1,5 @@
+import { Input } from "@/ui/atoms/"
+
 export const Combobox = () => {
-	return <div>combobox</div>
+	return <Input label="Location" id="location" />
 }

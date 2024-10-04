@@ -1,10 +1,9 @@
-import { Badge } from "@/ui/components/Badge/Badge"
+import { Combobox } from "@/ui/components"
 
 export const LocationSearch = () => {
 	return (
-		<div>
-			<h1 className="p-6 bg-white">Location Search</h1>
-			<Badge>Badge</Badge>
+		<div className="px-10 py-12 bg-gray-300 rounded-2xl min-w-96 flex flex-col gap-2">
+			<Combobox />
 		</div>
 	)
 }
