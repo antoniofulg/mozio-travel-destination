@@ -1,6 +1,7 @@
 "use client"
 
 import { Input, SelectBox } from "@/app/ui/atoms"
+import { get } from "http"
 import { useEffect, useState } from "react"
 
 type Option = { name: string; id: string | number }
@@ -25,7 +26,7 @@ export const Combobox = ({ getOptions, onSelect, options }: Props) => {
 		}, DEBOUNCE_TIME)
 
 		return () => clearTimeout(timeoutId)
-	}, [query])
+	}, [query, getOptions, isOpen])
 
 	const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setQuery(event.target.value)

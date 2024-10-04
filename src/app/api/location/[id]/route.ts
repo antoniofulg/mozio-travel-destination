@@ -1,6 +1,6 @@
 import LOCATION_LIST_MOCK from "@/mocks/LocationMocks"
 import { NextResponse } from "next/server"
-import { delay, getQueryParams } from "@/utils"
+import { delay } from "@/utils"
 
 export async function GET(
 	req: Request,
