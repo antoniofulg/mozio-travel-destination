@@ -1,4 +1,4 @@
-import { Combobox } from "@/ui/components"
+import { Combobox } from "@/app/ui/components"
 
 export const LocationSearch = () => {
 	return (
