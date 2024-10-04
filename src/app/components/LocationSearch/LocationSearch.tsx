@@ -14,7 +14,10 @@ export const LocationSearch = () => {
 	const [locationsList, setLocationsList] = useState<ShortLocation[]>([])
 
 	const fetchLocationsList = async (query: string) => {
-		if (!query) return
+		if (!query) {
+			setLocationsList([])
+			return
+		}
 
 		const response = await fetchData<{ data: ShortLocation[] }>(
 			"api/locations",
@@ -22,8 +25,8 @@ export const LocationSearch = () => {
 				queryParams: { query },
 			}
 		)
-		console.log(response)
-		setLocationsList(response.data)
+
+		setLocationsList(response.data || [])
 	}
 
 	const fetchLocationById = async (id: string | number) => {
