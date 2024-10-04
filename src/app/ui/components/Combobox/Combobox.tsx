@@ -1,7 +1,7 @@
 "use client"
 
 import { Input, SelectBox } from "@/app/ui/atoms"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 
 type Props = {
 	getOptions: (value: string) => void
