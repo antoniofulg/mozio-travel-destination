@@ -3,7 +3,7 @@
 import { Combobox } from "@/app/ui/components"
 import { LocationCard } from "../LocationCard/LocationCard"
 import { NearbyLocations } from "../NearbyLocations/NearbyLocations"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { fetchData } from "@/utils"
 import { Location, ShortLocation } from "@/app/types"
 
@@ -12,6 +12,9 @@ export const LocationSearch = () => {
 		null
 	)
 	const [locationsList, setLocationsList] = useState<ShortLocation[]>([])
+	const [nearbyLocationsList, setNearbyLocationsList] = useState<
+		ShortLocation[]
+	>([])
 
 	const fetchLocationsList = async (query: string) => {
 		if (!query) {
@@ -40,6 +43,27 @@ export const LocationSearch = () => {
 		setSelectedLocation(response.data)
 	}
 
+	const fetchNearbyLocations = async () => {
+		if (!selectedLocation) {
+			setNearbyLocationsList([])
+			return
+		}
+
+		const response = await fetchData<{ data: ShortLocation[] }>(
+			"api/location/nearby/" + selectedLocation.id
+		)
+
+		setNearbyLocationsList(response.data || [])
+	}
+
+	useEffect(() => {
+		if (!selectedLocation) {
+			return
+		}
+
+		fetchNearbyLocations()
+	}, [selectedLocation])
+
 	return (
 		<div className="w-96">
 			<div className="px-10 py-12 bg-gray-300 dark:bg-gray-800 rounded-2xl w-96 flex flex-col gap-2">
@@ -53,8 +77,8 @@ export const LocationSearch = () => {
 				<>
 					<LocationCard location={selectedLocation} />
 					<NearbyLocations
-						locations={[]}
-						onClick={(id) => console.log("Clicked on: " + id)}
+						locations={nearbyLocationsList}
+						onClick={(id) => fetchLocationById(id)}
 					/>
 				</>
 			)}
