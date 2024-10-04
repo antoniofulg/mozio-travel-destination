@@ -30,8 +30,14 @@ export const LocationSearch = () => {
 	}
 
 	const fetchLocationById = async (id: string | number) => {
-		console.log("fetchLocationById", id)
-		setSelectedLocation(null)
+		if (!id.toString()) {
+			setSelectedLocation(null)
+			return
+		}
+
+		const response = await fetchData<{ data: Location }>("api/location/" + id)
+
+		setSelectedLocation(response.data)
 	}
 
 	return (
@@ -45,18 +51,7 @@ export const LocationSearch = () => {
 			</div>
 			{selectedLocation && (
 				<>
-					<LocationCard
-						location={{
-							name: "London",
-							description: "The capital of the United Kingdom",
-							country: "United Kingdom",
-							climate: "Temperate",
-							currency: "GBP",
-							latitude: 51.5074,
-							longitude: 0.1278,
-							id: 1,
-						}}
-					/>
+					<LocationCard location={selectedLocation} />
 					<NearbyLocations
 						locations={[]}
 						onClick={(id) => console.log("Clicked on: " + id)}
