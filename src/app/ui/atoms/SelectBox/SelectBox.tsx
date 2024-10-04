@@ -1,7 +1,7 @@
 type Props = {
 	isLoading: boolean
 	onClick: (value: string) => void
-	options: { value: string; label: string }[]
+	options: { name: string; id: string }[]
 }
 
 export const SelectBox = ({ isLoading, onClick, options }: Props) => {
@@ -17,11 +17,11 @@ export const SelectBox = ({ isLoading, onClick, options }: Props) => {
 			{options.map((option) => (
 				<button
 					className="bg-white text-black hover:bg-gray-100 transition-all duration-300 w-full p-4 text-left first:rounded-t-2xl last:rounded-b-2xl"
-					key={option.value}
-					value={option.value}
-					onClick={() => onClick(option.value)}
+					key={option.id}
+					value={option.id}
+					onClick={() => onClick(option.id)}
 				>
-					{option.label}
+					{option.name}
 				</button>
 			))}
 		</div>

@@ -1,4 +1,4 @@
-import { LocationSearch } from "./components/LocationSearch/LocationSearch"
+import { LocationSearch } from "./components"
 
 export default function Home() {
 	return (

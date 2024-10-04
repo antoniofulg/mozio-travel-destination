@@ -1,20 +1,39 @@
 "use client"
 
-import { Input } from "@/app/ui/atoms"
-import { SelectBox } from "../../atoms/SelectBox/SelectBox"
+import { Input, SelectBox } from "@/app/ui/atoms"
+import { useEffect, useRef, useState } from "react"
 
-export const Combobox = () => {
+type Props = {
+	getOptions: (value: string) => void
+	onSelect: (value: string) => void
+	options: { name: string; id: string }[]
+}
+
+const DEBOUNCE_TIME = 500
+
+export const Combobox = ({ getOptions, onSelect, options }: Props) => {
+	const [query, setQuery] = useState("")
+
+	useEffect(() => {
+		const timeoutId = setTimeout(() => {
+			getOptions(query)
+		}, DEBOUNCE_TIME)
+
+		return () => clearTimeout(timeoutId)
+	}, [query])
+
 	return (
 		<>
-			<Input label="Location" id="location" />
+			<Input
+				value={query}
+				onChange={(event) => setQuery(event.target.value)}
+				label="Location"
+				id="location"
+			/>
 			<SelectBox
 				isLoading={false}
-				options={[
-					{ label: "Spain", value: "spain" },
-					{ label: "Italy", value: "italy" },
-					{ label: "Germany", value: "germany" },
-				]}
-				onClick={(value) => console.log("Clicked on " + value)}
+				options={options}
+				onClick={(value) => onSelect(value)}
 			/>
 		</>
 	)
