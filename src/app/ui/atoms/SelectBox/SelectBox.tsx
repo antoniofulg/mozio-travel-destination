@@ -1,7 +1,7 @@
 type Props = {
 	isLoading: boolean
-	onClick: (value: string) => void
-	options: { name: string; id: string }[]
+	onClick: (value: string | number) => void
+	options: { name: string; id: string | number }[]
 }
 
 export const SelectBox = ({ isLoading, onClick, options }: Props) => {

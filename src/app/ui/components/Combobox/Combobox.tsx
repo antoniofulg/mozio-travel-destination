@@ -5,8 +5,8 @@ import { useEffect, useState } from "react"
 
 type Props = {
 	getOptions: (value: string) => void
-	onSelect: (value: string) => void
-	options: { name: string; id: string }[]
+	onSelect: (value: string | number) => void
+	options: { name: string; id: string | number }[]
 }
 
 const DEBOUNCE_TIME = 500

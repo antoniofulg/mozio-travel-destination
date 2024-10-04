@@ -4,25 +4,29 @@ import { Combobox } from "@/app/ui/components"
 import { LocationCard } from "../LocationCard/LocationCard"
 import { NearbyLocations } from "../NearbyLocations/NearbyLocations"
 import { useState } from "react"
-import { Location } from "@/app/types/Location"
 import { fetchData } from "@/utils/fetch"
+import { Location, ShortLocation } from "@/app/types"
 
 export const LocationSearch = () => {
 	const [selectedLocation, setSelectedLocation] = useState<Location | null>(
 		null
 	)
-	const [locationsList, setLocationsList] = useState([])
+	const [locationsList, setLocationsList] = useState<ShortLocation[]>([])
 
 	const fetchLocationsList = async (query: string) => {
-		console.log("fetchLocationsList", query)
-		const data = await fetchData<Location>("api/locations", {
-			queryParams: { query },
-		})
-		console.log(data)
-		setLocationsList([])
+		if (!query) return
+
+		const response = await fetchData<{ data: ShortLocation[] }>(
+			"api/locations",
+			{
+				queryParams: { query },
+			}
+		)
+		console.log(response)
+		setLocationsList(response.data)
 	}
 
-	const fetchLocationById = async (id: string) => {
+	const fetchLocationById = async (id: string | number) => {
 		console.log("fetchLocationById", id)
 		setSelectedLocation(null)
 	}
