@@ -8,11 +8,11 @@ export const Input = forwardRef<HTMLInputElement, Props>(
 	({ label, id, ...props }, ref) => {
 		return (
 			<>
-				<label htmlFor={id} className="text-base font-normal text-black">
+				<label htmlFor={id} className="text-base font-normal">
 					{label}
 				</label>
 				<input
-					className="rounded-2xl p-4 text-black w-full placeholder-gray-600"
+					className="rounded-2xl p-4 w-full placeholder-gray-600 dark:text-black"
 					id={id}
 					type="text"
 					ref={ref}

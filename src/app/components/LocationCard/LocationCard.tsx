@@ -8,24 +8,19 @@ export const LocationCard = ({
 	location: { climate, country, currency, description, name },
 }: Props) => {
 	return (
-		<div className="bg-white shadow-lg rounded-lg p-4">
-			<div className="flex items-center justify-between">
-				<div>
-					<h3 className="text-lg font-semibold">{name}</h3>
-					<p className="text-sm text-gray-500">{description}</p>
-				</div>
-				<div>
-					<p>
-						<strong>Country:</strong> {country}
-					</p>
-					<p>
-						<strong>Climate:</strong> {climate}
-					</p>
-					<p>
-						<strong>Currency:</strong> {currency}
-					</p>
-				</div>
-			</div>
+		<div className=" p-4 flex flex-col items-start gap-2 justify-between">
+			<h3 className="text-xl font-medium">{name}</h3>
+			<p className="text-sm text-gray-500">{description}</p>
+
+			<p>
+				<strong>Country:</strong> {country}
+			</p>
+			<p>
+				<strong>Climate:</strong> {climate}
+			</p>
+			<p>
+				<strong>Currency:</strong> {currency}
+			</p>
 		</div>
 	)
 }
