@@ -5,6 +5,7 @@ import { LocationCard } from "../LocationCard/LocationCard"
 import { NearbyLocations } from "../NearbyLocations/NearbyLocations"
 import { useState } from "react"
 import { Location } from "@/app/types/Location"
+import { fetchData } from "@/utils/fetch"
 
 export const LocationSearch = () => {
 	const [selectedLocation, setSelectedLocation] = useState<Location | null>(
@@ -14,16 +15,15 @@ export const LocationSearch = () => {
 
 	const fetchLocationsList = async (query: string) => {
 		console.log("fetchLocationsList", query)
-		// const response = await fetch("/locations?query=" + query)
-		// const data = await response.json()
+		const data = await fetchData<Location>("api/locations", {
+			queryParams: { query },
+		})
+		console.log(data)
 		setLocationsList([])
 	}
 
 	const fetchLocationById = async (id: string) => {
 		console.log("fetchLocationById", id)
-		// const response = await fetch("/locations/" + id)
-		// const data = await response.json()
-		// setLocationsList(data)
 		setSelectedLocation(null)
 	}
 
