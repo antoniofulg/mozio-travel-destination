@@ -9,9 +9,12 @@ export async function GET(
 ) {
 	const id = params.id
 
+	console.log("---------- Received id:", id)
+
 	await delay(1000)
 
 	if (!id) {
+		console.log("---------- Bad Request: Id is required.")
 		return NextResponse.json(
 			{
 				error: "Bad Request",
@@ -26,6 +29,7 @@ export async function GET(
 	)
 
 	if (!selectedLocation) {
+		console.log("---------- Not Found: Location not found.")
 		return NextResponse.json(
 			{
 				error: "Not Found",
@@ -38,6 +42,8 @@ export async function GET(
 	const data = getClosestLocations(selectedLocation, LOCATION_LIST_MOCK, 5).map(
 		({ id, name }) => ({ id, name })
 	)
+
+	console.log("---------- Closest locations:", data)
 
 	return NextResponse.json({ data }, { status: 200 })
 }

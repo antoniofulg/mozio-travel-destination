@@ -34,6 +34,7 @@ export const LocationSearch = () => {
 
 		setIsFetchingLocationsList(true)
 		try {
+			console.log("Fetching locations list:", query)
 			const response = await fetchData<{ data: ShortLocation[] }>(
 				"api/locations",
 				{
@@ -60,6 +61,7 @@ export const LocationSearch = () => {
 		setIsFetchingSelectedLocation(true)
 
 		try {
+			console.log("Fetching location by id:", id)
 			const response = await fetchData<{ data: Location }>("api/location/" + id)
 
 			setSelectedLocation(response.data)
@@ -79,6 +81,7 @@ export const LocationSearch = () => {
 
 		setIsFetchingNearbyLocations(true)
 		try {
+			console.log("Fetching nearby locations for:", selectedLocation.name)
 			const response = await fetchData<{ data: ShortLocation[] }>(
 				"api/location/nearby/" + selectedLocation.id
 			)

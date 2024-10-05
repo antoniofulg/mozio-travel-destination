@@ -8,9 +8,12 @@ export async function GET(
 ) {
 	const id = params.id
 
+	console.log("---------- Received id:", id)
+
 	await delay(1000)
 
 	if (!id) {
+		console.log("---------- Bad Request: Id is required.")
 		return NextResponse.json(
 			{
 				error: "Bad Request",
@@ -25,6 +28,7 @@ export async function GET(
 	)
 
 	if (!data) {
+		console.log("---------- Not Found: Location not found.")
 		return NextResponse.json(
 			{
 				error: "Not Found",
@@ -33,6 +37,8 @@ export async function GET(
 			{ status: 404 }
 		)
 	}
+
+	console.log("---------- Selected location:", data)
 
 	return NextResponse.json({ data }, { status: 200 })
 }
