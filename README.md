@@ -11,8 +11,6 @@ This project is a travel destination search application built with Next.js, Type
 - [Installation](#installation)
 - [Usage](#usage)
 - [How to Run](#how-to-run)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
@@ -72,7 +70,3 @@ The fake API is implemented using the NextJS structure under the `./src/app/api`
 ### Error Handling
 
 To simulate backend error handling, entering 'fail' in the search input will trigger an error message displayed near the combobox.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
