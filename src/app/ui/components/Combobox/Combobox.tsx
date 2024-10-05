@@ -2,7 +2,7 @@
 
 import { Input } from "@/app/ui/atoms"
 import { useEffect, useRef, useState } from "react"
-import { SelectBox } from "@/app/ui/components"
+import { ComboboxList } from "@/app/ui/components"
 
 type Option = { name: string; id: string | number }
 
@@ -55,13 +55,13 @@ export const Combobox = ({
 
 	const handleInputKeyDown = (event: React.KeyboardEvent) => {
 		if (event.key === "ArrowDown") {
-			setSelectedIndex(0) // Start from the first item
-			listRef.current?.focus() // Move focus to the list
+			setSelectedIndex(0)
+			listRef.current?.focus()
 		}
 	}
 
 	return (
-		<>
+		<div className="relative">
 			<Input
 				value={query}
 				onChange={onChangeHandler}
@@ -70,15 +70,17 @@ export const Combobox = ({
 				onKeyDown={handleInputKeyDown}
 			/>
 			{isOpen && (
-				<SelectBox
-					isLoading={isLoading}
-					options={options}
-					onSelectItem={(option) => onSelectHandler(option)}
-					selectedIndex={selectedIndex}
-					setSelectedIndex={setSelectedIndex}
-					ref={listRef}
-				/>
+				<div className="absolute top-[5.5rem] w-full">
+					<ComboboxList
+						isLoading={isLoading}
+						options={options}
+						onSelectItem={(option) => onSelectHandler(option)}
+						selectedIndex={selectedIndex}
+						setSelectedIndex={setSelectedIndex}
+						ref={listRef}
+					/>
+				</div>
 			)}
-		</>
+		</div>
 	)
 }
