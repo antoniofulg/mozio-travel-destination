@@ -94,8 +94,8 @@ export const LocationSearch = () => {
 	}, [fetchNearbyLocations, selectedLocation])
 
 	return (
-		<div className="w-96">
-			<div className="px-10 py-12 bg-gray-300 dark:bg-gray-800 rounded-2xl w-96 flex flex-col gap-2">
+		<div className="max-w-96 p-4">
+			<div className="px-10 py-12 bg-gray-300 dark:bg-gray-800 rounded-2xl w-full flex flex-col gap-2">
 				<Combobox
 					getOptions={fetchLocationsList}
 					onSelect={fetchLocationById}

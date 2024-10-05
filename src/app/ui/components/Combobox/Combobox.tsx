@@ -1,7 +1,7 @@
 "use client"
 
 import { Input } from "@/app/ui/atoms"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { SelectBox } from "@/app/ui/components"
 
 type Option = { name: string; id: string | number }
@@ -23,6 +23,8 @@ export const Combobox = ({
 }: Props) => {
 	const [query, setQuery] = useState("")
 	const [isOpen, setIsOpen] = useState(false)
+	const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
+	const listRef = useRef<HTMLUListElement>(null)
 
 	useEffect(() => {
 		if (!isOpen) return
@@ -51,6 +53,13 @@ export const Combobox = ({
 		onSelect(id)
 	}
 
+	const handleInputKeyDown = (event: React.KeyboardEvent) => {
+		if (event.key === "ArrowDown") {
+			setSelectedIndex(0) // Start from the first item
+			listRef.current?.focus() // Move focus to the list
+		}
+	}
+
 	return (
 		<>
 			<Input
@@ -58,12 +67,16 @@ export const Combobox = ({
 				onChange={onChangeHandler}
 				label="Location"
 				id="location"
+				onKeyDown={handleInputKeyDown}
 			/>
 			{isOpen && (
 				<SelectBox
 					isLoading={isLoading}
 					options={options}
-					onClick={(option) => onSelectHandler(option)}
+					onSelectItem={(option) => onSelectHandler(option)}
+					selectedIndex={selectedIndex}
+					setSelectedIndex={setSelectedIndex}
+					ref={listRef}
 				/>
 			)}
 		</>
