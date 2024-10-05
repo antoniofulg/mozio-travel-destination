@@ -5,7 +5,7 @@ import { NearbyLocations } from "../NearbyLocations/NearbyLocations"
 import { useCallback, useEffect, useState } from "react"
 import { fetchData } from "@/utils"
 import { Location, ShortLocation } from "@/app/types"
-import { ComboBox } from "@/app/ui/components/ComboBox/ComboBox"
+import { ComboBox } from "@/app/ui/components/ComboBox/Combobox"
 
 export const LocationSearch = () => {
 	const [locationsList, setLocationsList] = useState<ShortLocation[]>([])
