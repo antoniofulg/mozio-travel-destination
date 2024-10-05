@@ -12,7 +12,7 @@ type Props = {
 	setSelectedIndex: Dispatch<SetStateAction<number | null>>
 } & React.HTMLAttributes<HTMLUListElement>
 
-export const ComboboxList = forwardRef<HTMLUListElement, Props>(
+export const ComboBoxList = forwardRef<HTMLUListElement, Props>(
 	(
 		{ isLoading, onSelectItem, options, selectedIndex, setSelectedIndex },
 		ref
@@ -66,4 +66,4 @@ export const ComboboxList = forwardRef<HTMLUListElement, Props>(
 	}
 )
 
-ComboboxList.displayName = "ComboboxList"
+ComboBoxList.displayName = "ComboBoxList"

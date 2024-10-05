@@ -1,6 +1,6 @@
 "use client"
 
-import { Combobox } from "@/app/ui/components"
+import { ComboBox } from "@/app/ui/components"
 import { LocationCard } from "../LocationCard/LocationCard"
 import { NearbyLocations } from "../NearbyLocations/NearbyLocations"
 import { useCallback, useEffect, useState } from "react"
@@ -96,7 +96,7 @@ export const LocationSearch = () => {
 	return (
 		<div className="max-w-96 p-4">
 			<div className="px-10 py-12 bg-gray-300 dark:bg-gray-800 rounded-2xl w-full flex flex-col gap-2">
-				<Combobox
+				<ComboBox
 					getOptions={fetchLocationsList}
 					onSelect={fetchLocationById}
 					options={locationsList}

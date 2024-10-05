@@ -2,7 +2,7 @@
 
 import { Input } from "@/app/ui/atoms"
 import { useEffect, useRef, useState } from "react"
-import { ComboboxList } from "@/app/ui/components"
+import { ComboBoxList } from "./ComboBoxList/ComboBoxList"
 
 type Option = { name: string; id: string | number }
 
@@ -15,7 +15,7 @@ type Props = {
 
 const DEBOUNCE_TIME = 500
 
-export const Combobox = ({
+export const ComboBox = ({
 	getOptions,
 	isLoading,
 	onSelect,
@@ -71,7 +71,7 @@ export const Combobox = ({
 			/>
 			{isOpen && (
 				<div className="absolute top-[5.5rem] w-full">
-					<ComboboxList
+					<ComboBoxList
 						isLoading={isLoading}
 						options={options}
 						onSelectItem={(option) => onSelectHandler(option)}
