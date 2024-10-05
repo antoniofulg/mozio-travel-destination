@@ -73,10 +73,6 @@ The fake API is implemented using the NextJS structure under the `./src/app/api`
 
 To simulate backend error handling, entering 'fail' in the search input will trigger an error message displayed near the combobox.
 
-## Contributing
-
-Contributions are welcome! Please feel free to submit a pull request or open an issue.
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
