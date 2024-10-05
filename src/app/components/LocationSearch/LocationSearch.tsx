@@ -19,8 +19,12 @@ export const LocationSearch = () => {
 	const [isFetchingLocationsList, setIsFetchingLocationsList] = useState(false)
 	const [isFetchingNearbyLocations, setIsFetchingNearbyLocations] =
 		useState(false)
-	const [isFetchingSelectedLoation, setIsFetchingSelectedLocation] =
+	const [isFetchingSelectedLocation, setIsFetchingSelectedLocation] =
 		useState(false)
+
+	const [locationErrorMessage, setLocationErrorMessage] = useState<
+		string | null
+	>(null)
 
 	const fetchLocationsList = useCallback(async (query: string) => {
 		if (!query) {
@@ -37,8 +41,10 @@ export const LocationSearch = () => {
 				}
 			)
 			setLocationsList(response.data || [])
+			setLocationErrorMessage(null)
 		} catch (error) {
 			console.error("Error fetching locations list:", error)
+			setLocationErrorMessage("We had a problem while fetching locations.")
 			setLocationsList([])
 		} finally {
 			setIsFetchingLocationsList(false)
@@ -101,12 +107,13 @@ export const LocationSearch = () => {
 					onSelect={fetchLocationById}
 					options={locationsList}
 					isLoading={isFetchingLocationsList}
+					errorMessage={locationErrorMessage ?? undefined}
 				/>
 			</div>
 			{selectedLocation && (
 				<>
 					<LocationCard
-						isLoading={isFetchingSelectedLoation}
+						isLoading={isFetchingSelectedLocation}
 						location={selectedLocation}
 					/>
 					<NearbyLocations

@@ -7,6 +7,7 @@ import { ComboBoxList } from "./ComboBoxList/ComboBoxList"
 type Option = { name: string; id: string | number }
 
 type Props = {
+	errorMessage?: string
 	getOptions: (value: string) => void
 	isLoading: boolean
 	onSelect: (value: string | number) => void
@@ -16,6 +17,7 @@ type Props = {
 const DEBOUNCE_TIME = 500
 
 export const ComboBox = ({
+	errorMessage,
 	getOptions,
 	isLoading,
 	onSelect,
@@ -61,7 +63,7 @@ export const ComboBox = ({
 	}
 
 	return (
-		<div className="relative">
+		<div className="relative flex flex-col gap-2 w-full">
 			<Input
 				value={query}
 				onChange={onChangeHandler}
@@ -69,6 +71,7 @@ export const ComboBox = ({
 				id="location"
 				onKeyDown={handleInputKeyDown}
 			/>
+			{errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
 			{isOpen && (
 				<div className="absolute top-[5.5rem] w-full">
 					<ComboBoxList

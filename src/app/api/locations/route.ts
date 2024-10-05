@@ -17,6 +17,16 @@ export async function GET(req: Request) {
 		)
 	}
 
+	if (query === "fail") {
+		return NextResponse.json(
+			{
+				error: "Internal Server Error",
+				message: "Something went wrong.",
+			},
+			{ status: 500 }
+		)
+	}
+
 	const data = LOCATION_LIST_MOCK.filter((location) =>
 		location.name.toLowerCase().includes(query.toLowerCase())
 	).map(({ id, name }) => ({ id, name }))
