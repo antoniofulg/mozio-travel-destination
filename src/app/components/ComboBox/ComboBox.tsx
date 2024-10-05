@@ -69,6 +69,7 @@ export const ComboBox = ({
 				onChange={onChangeHandler}
 				label="Location"
 				id="location"
+				placeholder="Search for a location"
 				onKeyDown={handleInputKeyDown}
 			/>
 			{errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
