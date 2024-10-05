@@ -7,13 +7,15 @@ type Props = {
 	onClick: (id: number) => void
 }
 
+const RANDOM_ARRAY = [96, 88, 140, 120, 70]
+
 export const NearbyLocations = ({ isLoading, locations, onClick }: Props) => {
 	return (
 		<div className="flex flex-col gap-2">
 			<h3 className="text-lg font-medium">Nearby Locations</h3>
 			{isLoading && (
 				<div className="flex flex-wrap gap-2">
-					{[96, 88, 140, 120, 70].map((item) => (
+					{RANDOM_ARRAY.map((item) => (
 						<Skeleton
 							key={item}
 							className="w-[var(--skeleton-size)] h-7 bg-purple-600"

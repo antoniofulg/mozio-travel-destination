@@ -8,16 +8,18 @@ import { fetchData } from "@/utils"
 import { Location, ShortLocation } from "@/app/types"
 
 export const LocationSearch = () => {
-	const [selectedLocation, setSelectedLocation] = useState<Location | null>(
-		null
-	)
 	const [locationsList, setLocationsList] = useState<ShortLocation[]>([])
 	const [nearbyLocationsList, setNearbyLocationsList] = useState<
 		ShortLocation[]
 	>([])
+	const [selectedLocation, setSelectedLocation] = useState<Location | null>(
+		null
+	)
 
 	const [isFetchingLocationsList, setIsFetchingLocationsList] = useState(false)
 	const [isFetchingNearbyLocations, setIsFetchingNearbyLocations] =
+		useState(false)
+	const [isFetchingSelectedLoation, setIsFetchingSelectedLocation] =
 		useState(false)
 
 	const fetchLocationsList = useCallback(async (query: string) => {
@@ -49,9 +51,18 @@ export const LocationSearch = () => {
 			return
 		}
 
-		const response = await fetchData<{ data: Location }>("api/location/" + id)
+		setIsFetchingSelectedLocation(true)
 
-		setSelectedLocation(response.data)
+		try {
+			const response = await fetchData<{ data: Location }>("api/location/" + id)
+
+			setSelectedLocation(response.data)
+		} catch (error) {
+			console.error("Error fetching nearby locations:", error)
+			setNearbyLocationsList([])
+		} finally {
+			setIsFetchingSelectedLocation(false)
+		}
 	}
 
 	const fetchNearbyLocations = useCallback(async () => {
@@ -94,11 +105,14 @@ export const LocationSearch = () => {
 			</div>
 			{selectedLocation && (
 				<>
-					<LocationCard location={selectedLocation} />
+					<LocationCard
+						isLoading={isFetchingSelectedLoation}
+						location={selectedLocation}
+					/>
 					<NearbyLocations
+						isLoading={isFetchingNearbyLocations}
 						locations={nearbyLocationsList}
 						onClick={(id) => fetchLocationById(id)}
-						isLoading={isFetchingNearbyLocations}
 					/>
 				</>
 			)}
